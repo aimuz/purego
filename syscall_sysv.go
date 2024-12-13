@@ -15,9 +15,6 @@ import (
 var syscall15XABI0 uintptr
 
 
-func Syscall_syscall15X(fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15 uintptr) (r1, r2, err uintptr)
-
-//go:linkname syscall_syscall15X Syscall_syscall15X
 //go:nosplit
 func syscall_syscall15X(fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15 uintptr) (r1, r2, err uintptr) {
 	args := syscall15Args{
@@ -28,6 +25,8 @@ func syscall_syscall15X(fn, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a
 	runtime_cgocall(syscall15XABI0, unsafe.Pointer(&args))
 	return args.a1, args.a2, 0
 }
+
+var Syscall_syscall15X = syscall_syscall15X
 
 // NewCallback converts a Go function to a function pointer conforming to the C calling convention.
 // This is useful when interoperating with C code requiring callbacks. The argument is expected to be a
